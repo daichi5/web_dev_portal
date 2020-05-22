@@ -4,4 +4,8 @@ services:
   web_app:
     build: .
     tty: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
     container_name: "web_app"
