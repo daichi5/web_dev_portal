@@ -1,15 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"text/template"
 )
 
-func viewHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "hello world.")
+type PageData struct {
+	Message string
+}
+
+var templates = template.Must(template.ParseFiles("internal/views/home.html"))
+
+func viewHomeHandler(w http.ResponseWriter, r *http.Request) {
+	err := templates.ExecuteTemplate(w, "home.html", PageData{Message: "this is ssage"})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
-	http.HandleFunc("/", viewHandler)
+	http.HandleFunc("/", viewHomeHandler)
 	http.ListenAndServe(":8080", nil)
 }
