@@ -12,7 +12,7 @@ type PageData struct {
 var templates = template.Must(template.ParseFiles("internal/views/home.html"))
 
 func viewHomeHandler(w http.ResponseWriter, r *http.Request) {
-	err := templates.ExecuteTemplate(w, "home.html", PageData{Message: "this is ssage"})
+	err := templates.ExecuteTemplate(w, "home.html", PageData{Message: "this is message"})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

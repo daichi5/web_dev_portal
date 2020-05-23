@@ -1,5 +1,7 @@
 FROM golang:latest
 
-WORKDIR /app
+RUN go get -v github.com/oxequa/realize
 
-ENTRYPOINT [ "go", "run", "./cmd/web_dev_portal/main.go" ]
+EXPOSE 8080
+
+CMD [ "realize", "start", "--run" ]

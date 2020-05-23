@@ -8,4 +8,4 @@ services:
       - "8080:8080"
     volumes:
       - .:/app
-    container_name: "web_app"
+    working_dir: /app
