@@ -4,17 +4,18 @@ settings:
     interval: 0s
 schema:
   - name: app
-    path: cmd/web_dev_portal/
+    path: /app
     commands:
       build:
         status: true
-        method: go build -o /go/bin/myapp
+        method: go build -o /go/bin/myapp ./cmd/web_dev_portal/
       run:
         status: true
         method:  /go/bin/myapp
     watcher:
       extensions:
         - go
+        - html
       paths:
         - /
       ignored_paths:
