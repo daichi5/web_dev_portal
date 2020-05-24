@@ -2,6 +2,18 @@
 <html lang="ja">
 <head>
     <title>Web Dev Portal</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $.ajax({
+            type: "GET",
+            url: "users",
+            success: function(users) {
+                users.forEach(user => {
+                    $("#users").append(`<li><a href="users/${user.id}">id: ${user.id}, name: ${user.name}</a></li>`)
+                })
+            }
+        })
+    </script>
 </head>
 <body>
     <h1>Web Dev Portal Title</h1>
@@ -9,6 +21,8 @@
         {{ .Message }} <br />
         <a href="users">users api response</a>
     </p>
+    <h2>User List</h2>
+    <ul id="users"></ul>
 
 </body>
 </html>

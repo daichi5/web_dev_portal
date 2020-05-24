@@ -16,7 +16,10 @@ var validPath = regexp.MustCompile("^/users/([0-9]+)$")
 func UsersHandler(w http.ResponseWriter, r *http.Request) {
 	m := validPath.FindStringSubmatch(r.URL.Path)
 	if len(m) > 0 {
-		show(w, r)
+		switch r.Method {
+		case "GET":
+			show(w, r)
+		}
 	} else {
 		index(w, r)
 	}
