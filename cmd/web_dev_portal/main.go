@@ -5,6 +5,7 @@ import (
 	"text/template"
 
 	"github.com/daichi5/web_dev_portal/internal/controllers"
+	_ "github.com/daichi5/web_dev_portal/internal/models"
 )
 
 type PageData struct {
