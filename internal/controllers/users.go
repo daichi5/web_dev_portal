@@ -4,12 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"regexp"
-)
 
-type User struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
+	"github.com/daichi5/web_dev_portal/internal/models"
+)
 
 var validPath = regexp.MustCompile("^/users/([0-9]+)$")
 
@@ -32,7 +29,7 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func show(w http.ResponseWriter, r *http.Request) {
-	json, err := json.Marshal(User{ID: 1, Name: r.URL.Path})
+	json, err := json.Marshal(models.User{Name: r.URL.Path})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -41,9 +38,9 @@ func show(w http.ResponseWriter, r *http.Request) {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	users := []User{}
-	users = append(users, User{ID: 1, Name: "tom"})
-	users = append(users, User{ID: 2, Name: "alice"})
+	users := []models.User{}
+	users = append(users, models.User{Name: "tom"})
+	users = append(users, models.User{Name: "alice"})
 	json, err := json.Marshal(users)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -54,7 +51,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func create(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("name")
-	json, err := json.Marshal(User{ID: 1, Name: name})
+	json, err := json.Marshal(models.User{Name: name})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

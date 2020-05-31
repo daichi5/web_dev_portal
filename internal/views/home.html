@@ -9,7 +9,7 @@
             url: "users",
             success: function(users) {
                 users.forEach(user => {
-                    $("#users").append(`<li><a href="users/${user.id}">id: ${user.id}, name: ${user.name}</a></li>`)
+                    $("#users").append(`<li><a href="users/${user.id}">username: ${user.name}</a></li>`)
                 })
             }
         })
