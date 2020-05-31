@@ -28,7 +28,11 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func show(w http.ResponseWriter, r *http.Request) {
-	json, err := json.Marshal(models.User{Name: r.URL.Path})
+	m := validPath.FindStringSubmatch(r.URL.Path)
+
+	user := models.User{}
+	models.Db.Where("id = ?", m[1]).First(&user)
+	json, err := json.Marshal(user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
