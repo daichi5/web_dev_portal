@@ -19,10 +19,18 @@
     <h1>Web Dev Portal Title</h1>
     <p>
         {{ .Message }} <br />
-        <a href="users">users api response</a>
+        <a href="users/">users api response</a>
     </p>
     <h2>User List</h2>
     <ul id="users"></ul>
-
+    <form action="users/" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input name="name" type="text" placeholder="type user name" />
+        </div>
+        <div>
+            <input type="submit" value="Create" />
+        </div>
+    </form>
 </body>
 </html>

@@ -21,7 +21,12 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 			show(w, r)
 		}
 	} else {
-		index(w, r)
+		switch r.Method {
+		case "GET":
+			index(w, r)
+		case "POST":
+			create(w, r)
+		}
 	}
 
 }
@@ -40,6 +45,16 @@ func index(w http.ResponseWriter, r *http.Request) {
 	users = append(users, User{ID: 1, Name: "tom"})
 	users = append(users, User{ID: 2, Name: "alice"})
 	json, err := json.Marshal(users)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(json)
+}
+
+func create(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("name")
+	json, err := json.Marshal(User{ID: 1, Name: name})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
