@@ -25,7 +25,6 @@ func UsersHandler(w http.ResponseWriter, r *http.Request) {
 			create(w, r)
 		}
 	}
-
 }
 
 func show(w http.ResponseWriter, r *http.Request) {
@@ -39,8 +38,7 @@ func show(w http.ResponseWriter, r *http.Request) {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	users := []models.User{}
-	users = append(users, models.User{Name: "tom"})
-	users = append(users, models.User{Name: "alice"})
+	models.Db.Find(&users)
 	json, err := json.Marshal(users)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -50,8 +48,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func create(w http.ResponseWriter, r *http.Request) {
-	name := r.FormValue("name")
-	json, err := json.Marshal(models.User{Name: name})
+	user := models.User{Name: r.FormValue("name")}
+	models.Db.Create(&user)
+	json, err := json.Marshal(user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
